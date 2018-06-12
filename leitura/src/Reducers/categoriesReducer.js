@@ -8,16 +8,16 @@ const initialState = {
 export const categoriesReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_CATEGORIES:
-        return {
+      return {
         ...state,
         categoryList: action.categories
-      };
+      }
     case SET_CATEGORY:
       return {
-      ...state,
-      category: action.category
-    };
+        ...state,
+        category: action.category
+      }
     default:
-      return state;
+      return state
   }
 }

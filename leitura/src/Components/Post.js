@@ -6,14 +6,14 @@ class Post extends Component {
   render () {
     return (
       <Item.Group>
-    <Item>
-      <Item.Content>
-        <Item.Header as='a'>{this.props.title} <Item.Extra>em {Moment.unix(this.props.timestamp/1000).format('DD/MM/YYYY')}</Item.Extra> </Item.Header>
-        <Item.Meta>{this.props.body}</Item.Meta>
-        <Item.Extra>Comentários: {this.props.commentCount}</Item.Extra>
-      </Item.Content>
-    </Item>
-    <Divider section />
+        <Item>
+          <Item.Content>
+            <Item.Header as='a'>{this.props.title} <Item.Extra>em {Moment.unix(this.props.timestamp / 1000).format('DD/MM/YYYY')}</Item.Extra> </Item.Header>
+            <Item.Meta>{this.props.body}</Item.Meta>
+            <Item.Extra>Comentários: {this.props.commentCount}</Item.Extra>
+          </Item.Content>
+        </Item>
+        <Divider section />
       </Item.Group>
 
     )

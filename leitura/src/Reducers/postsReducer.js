@@ -7,16 +7,16 @@ const initialState = {
 export const postsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_POSTS:
-        return {
+      return {
         ...state,
         postList: action.posts
-      };
+      }
     case GET_POSTS_BY_CATEGORY:
-        return {
+      return {
         ...state,
         postList: action.posts
-      };
+      }
     default:
-      return state;
+      return state
   }
 }
