@@ -1,7 +1,8 @@
-import { GET_POSTS, GET_POSTS_BY_CATEGORY } from '../Actions/actionTypes'
+import { GET_POSTS, GET_POSTS_BY_CATEGORY, GET_POST } from '../Actions/actionTypes'
 
 const initialState = {
-  postList: []
+  postList: [],
+  post: {}
 }
 
 export const postsReducer = (state = initialState, action) => {
@@ -10,6 +11,11 @@ export const postsReducer = (state = initialState, action) => {
       return {
         ...state,
         postList: action.posts
+      }
+    case GET_POST:
+      return {
+        ...state,
+        post: action.post
       }
     case GET_POSTS_BY_CATEGORY:
       return {

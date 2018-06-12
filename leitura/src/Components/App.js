@@ -9,8 +9,11 @@ import {
   Image,
   Menu
 } from 'semantic-ui-react'
+import './App.css'
 
 import ListPosts from './ListPosts'
+import PostDetails from './PostDetails'
+import PostEdit from './PostEdit'
 
 class App extends Component {
   componentDidMount () {
@@ -26,7 +29,7 @@ class App extends Component {
           <Container>
             <Menu.Item as='a' header>
               <Image size='mini' src='/logo.png' style={{ marginRight: '1.5em' }} />
-          Leitura
+            Leitura
             </Menu.Item>
             <Menu.Item as={Link} to='/'>Todos</Menu.Item>
 
@@ -37,7 +40,7 @@ class App extends Component {
             </Dropdown>
           </Container>
         </Menu>
-        <Container>
+        <Container className='m-t10vh'>
           <Switch>
             <Route exact path='/' render={(props) => (
               <ListPosts {...props} />
@@ -45,8 +48,11 @@ class App extends Component {
             <Route exact path='/:category' render={(props) => (
               <ListPosts {...props} />
             )} />
+            <Route exact path='/:category/:id' render={(props) => (
+              <PostDetails {...props} />
+            )} />
+            <Route exact path='/post/:id/edit' component={PostEdit} />
           </Switch>
-
         </Container>
       </div>
     )

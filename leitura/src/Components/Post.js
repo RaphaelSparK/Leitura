@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Item, Divider } from 'semantic-ui-react'
+import { Item, Button } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 import Moment from 'moment'
 
 class Post extends Component {
@@ -8,14 +9,21 @@ class Post extends Component {
       <Item.Group>
         <Item>
           <Item.Content>
-            <Item.Header as='a'>{this.props.title} <Item.Extra>em {Moment.unix(this.props.timestamp / 1000).format('DD/MM/YYYY')}</Item.Extra> </Item.Header>
-            <Item.Meta>{this.props.body}</Item.Meta>
-            <Item.Extra>Comentários: {this.props.commentCount}</Item.Extra>
+            <Item.Header as={Link} to={this.props.category + '/' + this.props.id}>{this.props.title}
+              <Item.Extra>em {Moment.unix(this.props.timestamp / 1000).format('DD/MM/YYYY')}</Item.Extra>
+            </Item.Header>
+            <Item.Meta>Comentários: {this.props.commentCount}</Item.Meta>
+            <Item.Extra />
+          </Item.Content>
+          <Item.Content >
+            <Button.Group floated='right'>
+              <Button>Edit</Button>
+              <Button.Or text='-' />
+              <Button negative>Delete</Button>
+            </Button.Group>
           </Item.Content>
         </Item>
-        <Divider section />
       </Item.Group>
-
     )
   }
 }

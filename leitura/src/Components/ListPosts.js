@@ -7,7 +7,7 @@ import { fetchGetPosts, fetchGetPostsByCategory, setCategory } from '../Actions'
 
 class ListPosts extends Component {
   componentDidMount () {
-
+    this.props.fetchGetPosts()
   }
 
   componentDidUpdate (prevProps) {
@@ -20,18 +20,17 @@ class ListPosts extends Component {
       }
     }
   }
+
   render () {
     const { posts } = this.props
     return (
       <div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <Segment>
-          { posts.postList.map(post => (<Post key={post.id} {...post} />))}
-        </Segment>
-
+        { posts.postList.length > 0 && (
+          <Segment>
+            { posts.postList.map(post => (<Post key={post.id} {...post} />))}
+          </Segment>
+        )
+        }
       </div>
     )
   }

@@ -3,6 +3,7 @@ import * as API from '../Helpers/api'
 import {
   GET_CATEGORIES,
   GET_POSTS,
+  GET_POST,
   GET_POSTS_BY_CATEGORY,
   SET_CATEGORY
 } from '../Actions/actionTypes'
@@ -56,6 +57,21 @@ export function fetchGetPostsByCategory (category) {
   return (dispatch) => {
     API.getPostsByCategory(category).then(
       (response) => dispatch(getPostsByCategory(category, response))
+    )
+  }
+}
+
+export function getPost (id, post) {
+  return {
+    type: GET_POST,
+    post
+  }
+}
+
+export function fetchGetPost (id) {
+  return (dispatch) => {
+    API.getPost(id).then(
+      (response) => dispatch(getPost(id, response))
     )
   }
 }
