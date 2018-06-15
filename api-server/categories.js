@@ -1,5 +1,4 @@
 const clone = require('clone')
-const config = require('./config')
 
 let db = {}
 
@@ -32,7 +31,7 @@ function getData (token) {
 
 function getAll (token) {
   return new Promise((resolve) => {
-    res(getData(token)) // eslint-disable-line
+    resolve(getData(token))
   })
 }
 

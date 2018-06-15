@@ -38,15 +38,15 @@ function getByParent (token, parentId) {
   return new Promise((resolve) => {
     let comments = getData(token)
     let keys = Object.keys(comments)
-    filtered_keys = keys.filter(key => comments[key].parentId === parentId && !comments[key].deleted)
-    res(filtered_keys.map(key => comments[key]))
+    let filteredKeys = keys.filter(key => comments[key].parentId === parentId && !comments[key].deleted)
+    resolve(filteredKeys.map(key => comments[key]))
   })
 }
 
 function get (token, id) {
   return new Promise((resolve) => {
     const comments = getData(token)
-    res(
+    resolve(
       comments[id].deleted || comments[id].parentDeleted
         ? {}
         : comments[id]
@@ -70,14 +70,14 @@ function add (token, comment) {
     }
 
     posts.incrementCommentCounter(token, comment.parentId, 1)
-    res(comments[comment.id])
+    resolve(comments[comment.id])
   })
 }
 
 function vote (token, id, option) {
   return new Promise((resolve) => {
     let comments = getData(token)
-    comment = comments[id]
+    let comment = comments[id]
     switch (option) {
       case 'upVote':
         comment.voteScore = comment.voteScore + 1
@@ -88,17 +88,17 @@ function vote (token, id, option) {
       default:
         console.log(`comments.vote received incorrect parameter: ${option}`)
     }
-    res(comment)
+    resolve(comment)
   })
 }
 
 function disableByParent (token, post) {
   return new Promise((resolve) => {
     let comments = getData(token)
-    keys = Object.keys(comments)
-    filtered_keys = keys.filter(key => comments[key].parentId === post.id)
-    filtered_keys.forEach(key => comments[key].parentDeleted = true)
-    res(post)
+    let keys = Object.keys(comments)
+    let filteredKeys = keys.filter(key => comments[key].parentId === post.id)
+    filteredKeys.forEach(key => { comments[key].parentDeleted = true })
+    resolve(post)
   })
 }
 
@@ -107,17 +107,17 @@ function disable (token, id) {
     let comments = getData(token)
     comments[id].deleted = true
     posts.incrementCommentCounter(token, comments[id].parentId, -1)
-    res(comments[id])
+    resolve(comments[id])
   })
 }
 
 function edit (token, id, comment) {
   return new Promise((resolve) => {
     let comments = getData(token)
-    for (prop in comment) {
+    for (let prop in comment) {
       comments[id][prop] = comment[prop]
     }
-    res(comments[id])
+    resolve(comments[id])
   })
 }
 

@@ -42,15 +42,9 @@ class App extends Component {
         </Menu>
         <Container className='m-t10vh'>
           <Switch>
-            <Route exact path='/' render={(props) => (
-              <ListPosts {...props} />
-            )} />
-            <Route exact path='/:category' render={(props) => (
-              <ListPosts {...props} />
-            )} />
-            <Route exact path='/:category/:id' render={(props) => (
-              <PostDetails {...props} />
-            )} />
+            <Route exact path='/' component={ListPosts} />
+            <Route exact path='/:category' component={ListPosts} />
+            <Route exact path='/:category/:id' component={PostDetails} />
             <Route exact path='/post/:id/edit' component={PostEdit} />
           </Switch>
         </Container>
