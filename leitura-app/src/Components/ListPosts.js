@@ -12,14 +12,11 @@ class ListPosts extends Component {
   }
 
   componentDidUpdate (prevProps) {
-    console.log(this.props.match.params.category, prevProps.match.params.category)
     if (this.props.match.params.category !== prevProps.match.params.category) {
       if (this.props.match.params.category === undefined) {
-        console.log('updatei geral')
         this.props.fetchGetPosts()
       } else {
         this.props.setCategory(this.props.match.params.category)
-        console.log('carreguei por categoria')
         this.props.fetchGetPostsByCategory(this.props.match.params.category)
       }
     }

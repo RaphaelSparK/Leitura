@@ -17,7 +17,7 @@ class Post extends Component {
           </Item.Content>
           <Item.Content >
             <Button.Group floated='right'>
-              <Button>Edit</Button>
+              <Button as={Link} to={`/post/${this.props.id}/edit`}>Edit</Button>
               <Button.Or text='-' />
               <Button negative>Delete</Button>
             </Button.Group>

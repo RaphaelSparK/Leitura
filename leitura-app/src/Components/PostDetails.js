@@ -3,12 +3,14 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Segment, Item, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-import { fetchGetPost } from '../Actions'
+import { fetchGetPost, fetchGetComments } from '../Actions'
 import Moment from 'moment'
+import Comments from './Comments'
 
 class PostDetails extends Component {
   componentDidMount () {
     this.props.fetchGetPost(this.props.match.params.id)
+    this.props.fetchGetComments(this.props.match.params.id)
   }
 
   render () {
@@ -34,6 +36,7 @@ class PostDetails extends Component {
             </Item.Content>
           </Item>
         </Item.Group>
+        <Comments />
       </Segment>
     )
   }
@@ -41,10 +44,11 @@ class PostDetails extends Component {
 
 const mapStateToProps = store => ({
   categories: store.categories,
-  posts: store.posts
+  posts: store.posts,
+  comments: store.comments
 })
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchGetPost }, dispatch)
+  bindActionCreators({ fetchGetPost, fetchGetComments }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetails)

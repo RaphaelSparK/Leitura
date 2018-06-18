@@ -6,7 +6,6 @@ import { Link, Route, Switch, withRouter } from 'react-router-dom'
 import {
   Container,
   Dropdown,
-  Image,
   Menu
 } from 'semantic-ui-react'
 import './App.css'
@@ -14,6 +13,7 @@ import './App.css'
 import ListPosts from './ListPosts'
 import PostDetails from './PostDetails'
 import PostEdit from './PostEdit'
+import PostNew from './PostNew'
 
 class App extends Component {
   componentDidMount () {
@@ -28,7 +28,6 @@ class App extends Component {
         <Menu fixed='top' inverted>
           <Container>
             <Menu.Item as='a' header>
-              <Image size='mini' src='/logo.png' style={{ marginRight: '1.5em' }} />
             Leitura
             </Menu.Item>
             <Menu.Item as={Link} to='/'>Todos</Menu.Item>
@@ -38,14 +37,17 @@ class App extends Component {
                 { categories.categoryList.map(cat => (<Dropdown.Item key={cat.name} as={Link} to={'/' + cat.path}>{cat.name}</Dropdown.Item>))}
               </Dropdown.Menu>
             </Dropdown>
+            <Menu.Item as={Link} to='/new'>Novo Post</Menu.Item>
           </Container>
         </Menu>
         <Container className='m-t10vh'>
           <Switch>
             <Route exact path='/' component={ListPosts} />
+            <Route exact path='/new' component={PostNew} />
             <Route exact path='/:category' component={ListPosts} />
             <Route exact path='/:category/:id' component={PostDetails} />
             <Route exact path='/post/:id/edit' component={PostEdit} />
+
           </Switch>
         </Container>
       </div>
