@@ -4,6 +4,8 @@ import { guid } from '../Helpers/util'
 import { bindActionCreators } from 'redux'
 import { fetchSetPost } from '../Actions'
 import { Segment, Item, Button, Input, TextArea, Dropdown } from 'semantic-ui-react'
+import Swal from 'sweetalert2'
+import _ from 'lodash'
 
 class PostNew extends Component {
   constructor (props) {
@@ -40,8 +42,19 @@ class PostNew extends Component {
       category: this.state.category,
     }
 
-    this.props.fetchSetPost(newPost)
+    if(_.values(newPost).some(e => e === '')){
+      Swal('Complete all fields','','warning')
+    }else{
+      this.props.fetchSetPost(newPost)
+      Swal(
+        'Good!',
+        'Post saved',
+        'success'
+      )
+    }
+
   }
+
 
   render () {
     return (

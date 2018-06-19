@@ -98,9 +98,8 @@ export function setPost (post) {
   }
 }
 
-export function fetchSetPost(post) {
+export function fetchSetPost (post) {
   return (dispatch) => {
     API.createPost(post).then(response => dispatch(setPost(post, response)))
   }
 }
-
