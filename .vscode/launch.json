@@ -4,7 +4,7 @@
         {
             "name": "Debug",
             "type": "chrome",
-            "request": "attach",
+            "request": "launch",
             "port": 9222,
             "url": "http://localhost:3000",
             "webRoot": "${workspaceFolder}"

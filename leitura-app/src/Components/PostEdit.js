@@ -27,7 +27,7 @@ class PostEdit extends Component {
               <Button.Group floated='right'>
                 <Button positive>Save</Button>
                 <Button.Or text='-' />
-                <Button negative>Cancel</Button>
+                <Button negative onClick={this.props.history.goBack}>Cancel</Button>
               </Button.Group>
             </Item.Content>
           </Item>

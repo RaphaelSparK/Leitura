@@ -6,7 +6,8 @@ import {
   GET_POST,
   GET_POSTS_BY_CATEGORY,
   SET_CATEGORY,
-  GET_COMMENTS
+  GET_COMMENTS,
+  SET_POST
 } from '../Actions/actionTypes'
 
 export function getCategories (categories) {
@@ -89,3 +90,17 @@ export function fetchGetComments (id) {
     API.getComments(id).then(response => dispatch(getComments(id, response)))
   }
 }
+
+export function setPost (post) {
+  return {
+    type: SET_POST,
+    post
+  }
+}
+
+export function fetchSetPost(post) {
+  return (dispatch) => {
+    API.createPost(post).then(response => dispatch(setPost(post, response)))
+  }
+}
+

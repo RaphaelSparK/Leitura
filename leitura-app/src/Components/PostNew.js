@@ -1,30 +1,47 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import { bindActionCreators } from 'redux'
+import { guid } from '../Helpers/util'
+import { bindActionCreators } from 'redux'
+import { fetchSetPost } from '../Actions'
 import { Segment, Item, Button, Input, TextArea, Dropdown } from 'semantic-ui-react'
 
-
 class PostNew extends Component {
-  state = {
-    id: Date.now(),
-    timestamp: Date.now(),
-    author: '',
-    body: '',
-    title: '',
-    category: ''
+  constructor (props) {
+    super(props)
+    this.state = {
+      author: '',
+      body: '',
+      title: '',
+      category: ''
+    }
+
+    this.handleInputChange = this.handleInputChange.bind(this)
   }
 
-  handleInputChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
+  handleInputChange (event) {
+    const target = event.target
+    const value = target.value
+    const name = target.name
 
     this.setState({
       [name]: value
-    });
+    })
   }
 
+  handleChange = (e, { value }) => this.setState({ category: value })
 
+  setNewPost = () => {
+    const newPost = {
+      id: guid(),
+      timestamp: Date.now(),
+      title: this.state.title,
+      body: this.state.body,
+      author: this.state.author,
+      category: this.state.category,
+    }
+
+    this.props.fetchSetPost(newPost)
+  }
 
   render () {
     return (
@@ -36,16 +53,18 @@ class PostNew extends Component {
               </Item.Header>
               <Item.Description>
                 <Dropdown
-                placeholder='Select Category'
-                style={{ width: '500px' }}
-                selection
-                options={this.props.categories.categoryList.map(c => {return {'text': c.name,'value': c.name}})} />
+                  placeholder='Select Category'
+                  style={{ width: '500px' }}
+                  selection
+                  onChange={this.handleChange}
+                  options={this.props.categories.categoryList.map(c => { return {'text': c.name, 'value': c.name} })} />
               </Item.Description>
-              <Item.Description> <Input name="title" style={{ width: '500px' }} value={this.state.title} /> </Item.Description>
-              <Item.Description> <TextArea name="body" style={{ width: '500px', minHeight: 100 }} value={this.state.body} />  </Item.Description>
-              <Item.Meta></Item.Meta>
+              <Item.Description> <Input label='Author' placeholder='Zé das couves' name='author' style={{ width: '500px' }} value={this.state.author} onChange={this.handleInputChange} /> </Item.Description>
+              <Item.Description> <Input label='Title' placeholder='Title' name='title' style={{ width: '500px' }} value={this.state.title} onChange={this.handleInputChange} /> </Item.Description>
+              <Item.Description> <TextArea name='body' style={{ width: '500px', minHeight: 100 }} value={this.state.body} onChange={this.handleInputChange} />  </Item.Description>
+              <Item.Meta />
               <Item.Extra />
-                <Button positive>Save</Button>
+              <Button positive onClick={this.setNewPost}>Save</Button>
             </Item.Content>
           </Item>
         </Item.Group>
@@ -56,10 +75,9 @@ class PostNew extends Component {
 
 const mapStateToProps = store => ({
   categories: store.categories,
-  posts: store.posts
-})
+ })
 
-// const mapDispatchToProps = dispatch =>
-//   bindActionCreators({ fetchGetPost }, dispatch)
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ fetchSetPost }, dispatch)
 
-export default connect(mapStateToProps, undefined)(PostNew)
+export default connect(mapStateToProps, mapDispatchToProps)(PostNew)
