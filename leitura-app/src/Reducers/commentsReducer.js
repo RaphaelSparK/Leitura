@@ -1,4 +1,4 @@
-import { GET_COMMENTS, GET_COMMENT } from '../Actions/actionTypes'
+import { GET_COMMENTS, GET_COMMENT, SET_COMMENT } from '../Actions/actionTypes'
 
 const initialState = {
   commentsList: [],
@@ -16,6 +16,11 @@ export const commentsReducer = (state = initialState, action) => {
       return {
         ...state,
         comment: action.comment
+      }
+    case SET_COMMENT:
+      return {
+        ...state,
+        commentsList: [...state.commentsList, action.comment]
       }
     default:
       return state

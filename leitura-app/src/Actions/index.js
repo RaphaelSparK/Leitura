@@ -7,7 +7,10 @@ import {
   GET_POSTS_BY_CATEGORY,
   SET_CATEGORY,
   GET_COMMENTS,
-  SET_POST
+  SET_POST,
+  DELETE_POST,
+  SET_COMMENT,
+  VOTE_POST
 } from '../Actions/actionTypes'
 
 export function getCategories (categories) {
@@ -101,5 +104,44 @@ export function setPost (post) {
 export function fetchSetPost (post) {
   return (dispatch) => {
     API.createPost(post).then(response => dispatch(setPost(post, response)))
+  }
+}
+
+export function deletePost (id) {
+  return {
+    type: DELETE_POST,
+    id
+  }
+}
+
+export function fetchDeletePost (id) {
+  return (dispatch) => {
+    API.deletePost(id).then(response => dispatch(deletePost(id, response)))
+  }
+}
+
+export function SetComment (comment) {
+  return {
+    type: SET_COMMENT,
+    comment
+  }
+}
+
+export function fetchSetComment (comment) {
+  return (dispatch) => {
+    API.createComment(comment).then(response => dispatch(SetComment(comment, response)))
+  }
+}
+
+export function SetPostVote (post) {
+  return {
+    type: VOTE_POST,
+    post
+  }
+}
+
+export function fetchPostVote (id, option) {
+  return (dispatch) => {
+    API.votePost(id, option).then(response => dispatch(SetPostVote(response)))
   }
 }

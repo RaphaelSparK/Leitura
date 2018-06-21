@@ -3,9 +3,10 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Segment, Item, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-import { fetchGetPost, fetchGetComments } from '../Actions'
+import { fetchGetPost, fetchGetComments, fetchPostVote } from '../Actions'
 import Moment from 'moment'
 import Comments from './Comments'
+import UpDownVote from './UpDownVote'
 
 class PostDetails extends Component {
   componentDidMount () {
@@ -24,8 +25,8 @@ class PostDetails extends Component {
                 <Item.Extra>em {Moment.unix(post.timestamp / 1000).format('DD/MM/YYYY')}</Item.Extra>
               </Item.Header>
               <Item.Description> {post.body} </Item.Description>
+              <UpDownVote voteScore={post.voteScore} id={post.id} handleVote={this.props.fetchPostVote} />
               <Item.Meta>Comentários: {post.commentCount}</Item.Meta>
-              <Item.Extra />
             </Item.Content>
             <Item.Content >
               <Button.Group floated='right'>
@@ -33,10 +34,12 @@ class PostDetails extends Component {
                 <Button.Or text='-' />
                 <Button negative>Delete</Button>
               </Button.Group>
+
             </Item.Content>
           </Item>
         </Item.Group>
         <Comments />
+
       </Segment>
     )
   }
@@ -49,6 +52,6 @@ const mapStateToProps = store => ({
 })
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchGetPost, fetchGetComments }, dispatch)
+  bindActionCreators({ fetchGetPost, fetchGetComments, fetchPostVote }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetails)

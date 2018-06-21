@@ -13,11 +13,16 @@ import './App.css'
 import ListPosts from './ListPosts'
 import PostDetails from './PostDetails'
 import PostEdit from './PostEdit'
-import PostNew from './PostNew'
+
+import ModalPost from './ModalPost'
 
 class App extends Component {
   componentDidMount () {
     this.props.fetchGetCategories()
+  }
+
+  setAuthor () {
+
   }
 
   render () {
@@ -37,13 +42,13 @@ class App extends Component {
                 { categories.categoryList.map(cat => (<Dropdown.Item key={cat.name} as={Link} to={'/' + cat.path}>{cat.name}</Dropdown.Item>))}
               </Dropdown.Menu>
             </Dropdown>
-            <Menu.Item as={Link} to='/new'>Novo Post</Menu.Item>
+            <ModalPost />
           </Container>
         </Menu>
         <Container className='m-t10vh'>
           <Switch>
             <Route exact path='/' component={ListPosts} />
-            <Route exact path='/new' component={PostNew} />
+            {/* <Route exact path='/new' component={PostNew} /> */}
             <Route exact path='/:category' component={ListPosts} />
             <Route exact path='/:category/:id' component={PostDetails} />
             <Route exact path='/post/:id/edit' component={PostEdit} />

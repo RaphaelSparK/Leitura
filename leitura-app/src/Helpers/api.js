@@ -88,11 +88,19 @@ export const deleteComment = (data) => fetch(
   }
 )
 
-export const votePost = (data, option, path) => fetch(
-  `${url}/${path}/${data}`, {
+export const voteComment = (data, option) => fetch(
+  `${url}/comments/${data}`, {
     method: 'post',
     headers: headers,
     body: JSON.stringify(option)
   }
-)
+).then(res => res.json())
+
+export const votePost = (data, option) => fetch(
+  `${url}/posts/${data}`, {
+    method: 'post',
+    headers: headers,
+    body: JSON.stringify({option})
+  }
+).then(res => res.json())
 /* eslint-disable no-undef */
