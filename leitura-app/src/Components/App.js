@@ -6,7 +6,8 @@ import { Link, Route, Switch, withRouter } from 'react-router-dom'
 import {
   Container,
   Dropdown,
-  Menu
+  Menu,
+  Label
 } from 'semantic-ui-react'
 import './App.css'
 
@@ -15,6 +16,7 @@ import PostDetails from './PostDetails'
 import PostEdit from './PostEdit'
 
 import ModalPost from './ModalPost'
+import Page404 from './Page404'
 
 class App extends Component {
   componentDidMount () {
@@ -39,7 +41,7 @@ class App extends Component {
 
             <Dropdown item simple text='Categorias'>
               <Dropdown.Menu>
-                { categories.categoryList.map(cat => (<Dropdown.Item key={cat.name} as={Link} to={'/' + cat.path}>{cat.name}</Dropdown.Item>))}
+                { categories.categoryList.map(cat => (<Dropdown.Item key={cat.name} as={Link} to={'/' + cat.path}><Label circular color={this.props.categories.colors[cat.name]} empty />{cat.name}</Dropdown.Item>))}
               </Dropdown.Menu>
             </Dropdown>
             <ModalPost />
@@ -52,7 +54,7 @@ class App extends Component {
             <Route exact path='/:category' component={ListPosts} />
             <Route exact path='/:category/:id' component={PostDetails} />
             <Route exact path='/post/:id/edit' component={PostEdit} />
-
+            <Route path='/404' component={Page404} />
           </Switch>
         </Container>
       </div>

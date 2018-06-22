@@ -2,7 +2,8 @@ import { GET_CATEGORIES, SET_CATEGORY } from '../Actions/actionTypes'
 
 const initialState = {
   categoryList: [],
-  category: 'all'
+  category: 'all',
+  colors: {redux: 'red', react: 'blue', udacity: 'green'}
 }
 
 export const categoriesReducer = (state = initialState, action) => {

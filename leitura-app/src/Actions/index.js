@@ -10,7 +10,9 @@ import {
   SET_POST,
   DELETE_POST,
   SET_COMMENT,
-  VOTE_POST
+  VOTE_POST,
+  VOTE_COMMENT,
+  DELETE_COMMENT
 } from '../Actions/actionTypes'
 
 export function getCategories (categories) {
@@ -120,6 +122,19 @@ export function fetchDeletePost (id) {
   }
 }
 
+export function deleteComment (id) {
+  return {
+    type: DELETE_COMMENT,
+    id
+  }
+}
+
+export function fetchDeleteComment (id) {
+  return (dispatch) => {
+    API.deleteComment(id).then(response => dispatch(deleteComment(id, response)))
+  }
+}
+
 export function SetComment (comment) {
   return {
     type: SET_COMMENT,
@@ -143,5 +158,18 @@ export function SetPostVote (post) {
 export function fetchPostVote (id, option) {
   return (dispatch) => {
     API.votePost(id, option).then(response => dispatch(SetPostVote(response)))
+  }
+}
+
+export function SetCommentVote (comment) {
+  return {
+    type: VOTE_COMMENT,
+    comment
+  }
+}
+
+export function fetchCommentVote (id, option) {
+  return (dispatch) => {
+    API.voteComment(id, option).then(response => dispatch(SetCommentVote(response)))
   }
 }

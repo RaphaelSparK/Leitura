@@ -92,9 +92,10 @@ export const voteComment = (data, option) => fetch(
   `${url}/comments/${data}`, {
     method: 'post',
     headers: headers,
-    body: JSON.stringify(option)
+    body: JSON.stringify({option})
   }
-).then(res => res.json())
+).then(res =>
+  res.json())
 
 export const votePost = (data, option) => fetch(
   `${url}/posts/${data}`, {

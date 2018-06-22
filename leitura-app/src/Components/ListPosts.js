@@ -27,9 +27,7 @@ class ListPosts extends Component {
     return (
       <div>
         { posts.postList.length > 0 && (
-          <Segment>
-            { posts.postList.map(post => (<Post key={post.id} {...post} />))}
-          </Segment>
+          posts.postList.map(post => (<Post key={post.id} {...post} />))
         )
         }
       </div>

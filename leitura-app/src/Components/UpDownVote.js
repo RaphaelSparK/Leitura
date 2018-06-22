@@ -24,34 +24,34 @@ class UpDownVote extends Component {
         <Checkbox  
           label={this.state.status === 1 ?
            <Icon 
-             style={{ position:'relative',top: '-5px' }} 
+             
              color='green' 
              flipped="horizontally" 
              name='thumbs up outline' 
-             size='big'
+             size={this.props.size}
            /> : 
            <Icon 
-             style={{ position:'relative',top: '-5px' }} 
+            
              flipped="horizontally" 
              name='thumbs up outline' 
-             size='big'
+             size={this.props.size}
             />} 
           onChange={this.upVote} 
           checked={this.state.status === 1}
          />
-         <Label circular color={this.props.voteScore > 0?'green':'red'}>{this.props.voteScore}</Label>
+         <Label size={this.props.scoreSize || 'large'} horizontal color={this.props.voteScore > 0?'green':'red'}>{this.props.voteScore}</Label>         
          <Checkbox  
           label={this.state.status === -1 ?
            <Icon 
-             style={{ position:'relative',top: '5px' }} 
+             
              color='red' 
              name='thumbs down outline' 
-             size='big'
+             size={this.props.size}
            /> : 
            <Icon 
-             style={{ position:'relative',top: '5px' }} 
+             
              name='thumbs down outline' 
-             size='big'
+             size={this.props.size}
             />} 
           onChange={this.downVote} 
           checked={this.state.status === -1}
