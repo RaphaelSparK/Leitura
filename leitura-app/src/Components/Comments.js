@@ -2,13 +2,14 @@ import React, {Component} from 'react'
 import { Comment, TextArea, Input, Item, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { fetchSetComment, fetchCommentVote } from '../Actions/index'
+import { fetchSetComment, fetchCommentVote, setComment, fetchDeleteComment } from '../Actions/index'
 import { guid, handleInputChange } from '../Helpers/util'
 import Swal from 'sweetalert2'
 import Moment from 'moment'
 import _ from 'lodash'
 import avatar from '../avatar.png'
 import UpDownVote from './UpDownVote'
+import ModalComment from './ModalComment'
 
 class Comments extends Component {
   constructor (props) {
@@ -49,6 +50,27 @@ class Comments extends Component {
     }
   }
 
+  deleteComment (id) {
+    Swal({
+      title: 'Excluir o comentário?',
+      text: 'Você não será capaz de reverter isso!',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, exclua!'
+    }).then((result) => {
+      if (result.value) {
+        this.props.fetchDeleteComment(id)
+        Swal(
+          'Excluído!',
+          'Seu comentário foi excluido.',
+          'success'
+        )
+      }
+    })
+  }
+
   render () {
     const { commentsList } = this.props.comments
     return (<div>
@@ -63,9 +85,11 @@ class Comments extends Component {
               </Comment.Metadata>
               <Comment.Text>{comment.body}</Comment.Text>
               <Comment.Actions>
-                <Comment.Text>
+                <ModalComment handleSetComment={this.props.setComment} commentId={comment.id} />
+                <Comment.Action onClick={() => this.deleteComment(comment.id)}>Excluir</Comment.Action>
+                <Comment.Action>
                   <UpDownVote size='large' scoreSize='mini' voteScore={comment.voteScore} id={comment.id} handleVote={this.props.fetchCommentVote} />
-                </Comment.Text>
+                </Comment.Action>
               </Comment.Actions>
             </Comment.Content>
           </Comment>
@@ -104,6 +128,6 @@ const mapStateToProps = store => ({
 })
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchSetComment, fetchCommentVote }, dispatch)
+  bindActionCreators({ fetchSetComment, fetchCommentVote, setComment, fetchDeleteComment }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comments)

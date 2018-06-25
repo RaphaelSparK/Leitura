@@ -36,7 +36,7 @@ class PostEdit extends Component {
     }
 
     if (_.values(editPost).some(e => e === '')) {
-      Swal('Complete all fields', '', 'warning')
+      Swal('Preencha todos os campos', '', 'warning')
     } else {
       this.props.fetchSetEditPost(editPost)
       this.setState({
@@ -45,21 +45,22 @@ class PostEdit extends Component {
         title: '' })
 
       Swal(
-        'Good!',
-        'Post saved',
+        'Ótimo!',
+        'Post editado',
         'success'
       )
+      this.props.history.goBack()
     }
   }
 
   render () {
-    const { post } = this.props.posts
+    const { category } = this.props.posts.postList.find(p => p.id === this.props.match.params.id)
     return (
       <Segment>
         <Grid>
           <Grid.Column width={13}>
-            <Label color={this.props.categories.colors[post.category]} ribbon>
-              {post.category}
+            <Label color={this.props.categories.colors[category]} ribbon>
+              {category}
             </Label>
             <Item.Group>
               <Item>
@@ -93,14 +94,10 @@ class PostEdit extends Component {
                       onChange={this.handleInputChange} />
                   </Item.Description>
                   <Button positive onClick={this.setEditPost}>Editar</Button>
+                  <Button negative onClick={this.props.history.goBack}>Cancelar</Button>
                 </Item.Content>
               </Item>
             </Item.Group>
-          </Grid.Column>
-          <Grid.Column width={3}>
-            <Grid.Row>
-              <Button floated='right' negative size='mini' onClick={this.props.history.goBack}>Cancelar</Button>
-            </Grid.Row>
           </Grid.Column>
         </Grid>
       </Segment>

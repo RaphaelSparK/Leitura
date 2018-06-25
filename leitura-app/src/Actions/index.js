@@ -7,6 +7,7 @@ import {
   GET_POSTS_BY_CATEGORY,
   SET_CATEGORY,
   GET_COMMENTS,
+  GET_COMMENT,
   SET_POST,
   DELETE_POST,
   SET_COMMENT,
@@ -14,8 +15,11 @@ import {
   VOTE_COMMENT,
   DELETE_COMMENT,
   SET_ORDER,
-  EDIT_POST
+  EDIT_POST,
+  EDIT_COMMENT
 } from '../Actions/actionTypes'
+
+// CATEGORIES
 
 export function getCategories (categories) {
   return {
@@ -39,12 +43,15 @@ export function setCategory (category) {
   }
 }
 
+// POSTS
+
 export function setSort (sort) {
   return {
     type: SET_ORDER,
     sort
   }
 }
+
 export function getPosts (posts) {
   return {
     type: GET_POSTS,
@@ -91,19 +98,6 @@ export function fetchGetPost (id) {
   }
 }
 
-export function getComments (id, comments) {
-  return {
-    type: GET_COMMENTS,
-    comments
-  }
-}
-
-export function fetchGetComments (id) {
-  return (dispatch) => {
-    API.getComments(id).then(response => dispatch(getComments(id, response)))
-  }
-}
-
 export function setPost (post) {
   return {
     type: SET_POST,
@@ -126,7 +120,8 @@ export function setEditPost (post) {
 
 export function fetchSetEditPost (post) {
   return (dispatch) => {
-    API.editPost(post).then(response => dispatch(setEditPost(post, response)))
+    API.editPost(post).then(response =>
+      dispatch(setEditPost(post, response)))
   }
 }
 
@@ -140,6 +135,55 @@ export function deletePost (id) {
 export function fetchDeletePost (id) {
   return (dispatch) => {
     API.deletePost(id).then(response => dispatch(deletePost(id, response)))
+  }
+}
+
+export function SetPostVote (post) {
+  return {
+    type: VOTE_POST,
+    post
+  }
+}
+
+export function fetchPostVote (id, option) {
+  return (dispatch) => {
+    API.votePost(id, option).then(response => dispatch(SetPostVote(response)))
+  }
+}
+
+// COMMENTS
+
+export function setComment (id) {
+  return {
+    type: GET_COMMENT,
+    id
+  }
+}
+
+export function getComments (id, comments) {
+  return {
+    type: GET_COMMENTS,
+    comments
+  }
+}
+
+export function fetchGetComments (id) {
+  return (dispatch) => {
+    API.getComments(id).then(response => dispatch(getComments(id, response)))
+  }
+}
+
+export function setEditComment (comment, newComment) {
+  return {
+    type: EDIT_COMMENT,
+    comment,
+    newComment
+  }
+}
+
+export function fetchSetEditComment (comment) {
+  return (dispatch) => {
+    API.editComment(comment).then(response => dispatch(setEditComment(comment, response)))
   }
 }
 
@@ -166,19 +210,6 @@ export function SetComment (comment) {
 export function fetchSetComment (comment) {
   return (dispatch) => {
     API.createComment(comment).then(response => dispatch(SetComment(comment, response)))
-  }
-}
-
-export function SetPostVote (post) {
-  return {
-    type: VOTE_POST,
-    post
-  }
-}
-
-export function fetchPostVote (id, option) {
-  return (dispatch) => {
-    API.votePost(id, option).then(response => dispatch(SetPostVote(response)))
   }
 }
 

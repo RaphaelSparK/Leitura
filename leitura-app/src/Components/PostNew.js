@@ -98,6 +98,7 @@ class PostNew extends Component {
                   onChange={this.handleInputChange} />
               </Item.Description>
               <Button positive onClick={this.setNewPost}>Postar</Button>
+              <Button negative onClick={this.props.closeModal}>Voltar</Button>
             </Item.Content>
           </Item>
         </Item.Group>

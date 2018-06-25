@@ -23,10 +23,6 @@ class App extends Component {
     this.props.fetchGetCategories()
   }
 
-  setAuthor () {
-
-  }
-
   render () {
     const { categories } = this.props
 
@@ -41,7 +37,16 @@ class App extends Component {
 
             <Dropdown item simple text='Categorias'>
               <Dropdown.Menu>
-                { categories.categoryList.map(cat => (<Dropdown.Item key={cat.name} as={Link} to={`/${cat.path}/`}><Label circular color={this.props.categories.colors[cat.name]} empty />{cat.name}</Dropdown.Item>))}
+                { categories.categoryList.map(cat => (
+                  <Dropdown.Item
+                    key={cat.name}
+                    as={Link}
+                    to={`/${cat.path}/`}>
+                    <Label
+                      circular
+                      color={this.props.categories.colors[cat.name]}
+                      empty />{cat.name}
+                  </Dropdown.Item>))}
               </Dropdown.Menu>
             </Dropdown>
             <ModalPost />
@@ -54,7 +59,6 @@ class App extends Component {
             <Route exact path='/:category/:id' component={PostDetails} />
             <Route exact path='/:category/' component={ListPosts} />
             <Route exact path='/post/:id/edit' component={PostEdit} />
-
           </Switch>
         </Container>
       </div>

@@ -6,8 +6,29 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { fetchDeletePost, fetchPostVote } from '../Actions/index'
 import UpDownVote from './UpDownVote'
+import Swal from 'sweetalert2'
 
 class Post extends Component {
+  deletePost () {
+    Swal({
+      title: 'Excluir o post?',
+      text: 'Você não será capaz de reverter isso!',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, exclua!'
+    }).then((result) => {
+      if (result.value) {
+        this.props.fetchDeletePost(this.props.id)
+        Swal(
+          'Excluído!',
+          'Seu post foi excluido.',
+          'success'
+        )
+      }
+    })
+  }
   render () {
     return (
       <Segment color={this.props.categories.colors[this.props.category]}>
@@ -23,7 +44,7 @@ class Post extends Component {
           </Grid.Column>
           <Grid.Column width={3}>
             <Grid.Row>
-              <Button floated='right' negative size='mini' onClick={() => { this.props.fetchDeletePost(this.props.id) }}>Excluir</Button>
+              <Button floated='right' negative size='mini' onClick={this.deletePost}>Excluir</Button>
               <Button floated='right' size='mini' as={Link} to={`/post/${this.props.id}/edit`}>Editar</Button>
             </Grid.Row>
             <Grid.Row />

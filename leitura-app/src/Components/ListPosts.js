@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Post from './Post'
 import { fetchGetPosts, fetchGetPostsByCategory, setCategory, setSort } from '../Actions'
-import { Radio } from 'semantic-ui-react'
+import { Radio, Label, Icon } from 'semantic-ui-react'
 
 import _ from 'lodash'
 
@@ -43,28 +43,36 @@ class ListPosts extends Component {
     const { posts } = this.props
     return (
       <div>
-        <Radio
-          label='Mais recente '
-          name='radioGroup'
-          value='timestamp'
-          checked={posts.sort === 'timestamp'}
-          onChange={this.handleChange}
-        />
-        <Radio
-          label='Mais votados '
-          name='radioGroup'
-          value='voteScore'
-          checked={posts.sort === 'voteScore'}
-          onChange={this.handleChange}
-        />
-        <Radio
-          label='Mais comentados '
-          name='radioGroup'
-          value='commentCount'
-          checked={posts.sort === 'commentCount'}
-          onChange={this.handleChange}
-        />
-
+        <Label>
+          <Icon name='clock outline' />
+          <Radio
+            label={'Mais recente '}
+            name='radioGroup'
+            value='timestamp'
+            checked={posts.sort === 'timestamp'}
+            onChange={this.handleChange}
+          />
+        </Label>
+        <Label>
+          <Icon name='hotjar' />
+          <Radio
+            label='Mais votados '
+            name='radioGroup'
+            value='voteScore'
+            checked={posts.sort === 'voteScore'}
+            onChange={this.handleChange}
+          />
+        </Label>
+        <Label>
+          <Icon name='comments outline' />
+          <Radio
+            label='Mais comentados '
+            name='radioGroup'
+            value='commentCount'
+            checked={posts.sort === 'commentCount'}
+            onChange={this.handleChange}
+          />
+        </Label>
         {this.renderPosts()}
       </div>
     )
