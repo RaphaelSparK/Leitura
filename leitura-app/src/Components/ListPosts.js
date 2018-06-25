@@ -2,17 +2,25 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Post from './Post'
-import { Segment } from 'semantic-ui-react'
-import { fetchGetPosts, fetchGetPostsByCategory, setCategory } from '../Actions'
+import { fetchGetPosts, fetchGetPostsByCategory, setCategory, setSort } from '../Actions'
+import { Radio } from 'semantic-ui-react'
+
+import _ from 'lodash'
 
 class ListPosts extends Component {
+  constructor (props) {
+    super(props)
+
+    this.handleChange = this.handleChange.bind(this)
+  }
+
   componentDidMount () {
     this.props.match.params.category
       ? this.props.fetchGetPostsByCategory(this.props.match.params.category) : this.props.fetchGetPosts()
   }
 
   componentDidUpdate (prevProps) {
-    if (this.props.match.params.category !== prevProps.match.params.category) {
+    if (this.props.match.params.category !== prevProps.match.params.category || this.props.posts.postList.length !== prevProps.posts.postList.length) {
       if (this.props.match.params.category === undefined) {
         this.props.fetchGetPosts()
       } else {
@@ -22,14 +30,42 @@ class ListPosts extends Component {
     }
   }
 
+  handleChange (e, { value }) { this.props.setSort(value) }
+
+  renderPosts () {
+    if (this.props.posts.postList) {
+      const postsOrdenados = _.sortBy(this.props.posts.postList, this.props.posts.sort).reverse()
+      return postsOrdenados.map(post => <Post key={post.id} {...post} />)
+    }
+  }
+
   render () {
     const { posts } = this.props
     return (
       <div>
-        { posts.postList.length > 0 && (
-          posts.postList.map(post => (<Post key={post.id} {...post} />))
-        )
-        }
+        <Radio
+          label='Mais recente '
+          name='radioGroup'
+          value='timestamp'
+          checked={posts.sort === 'timestamp'}
+          onChange={this.handleChange}
+        />
+        <Radio
+          label='Mais votados '
+          name='radioGroup'
+          value='voteScore'
+          checked={posts.sort === 'voteScore'}
+          onChange={this.handleChange}
+        />
+        <Radio
+          label='Mais comentados '
+          name='radioGroup'
+          value='commentCount'
+          checked={posts.sort === 'commentCount'}
+          onChange={this.handleChange}
+        />
+
+        {this.renderPosts()}
       </div>
     )
   }
@@ -41,6 +77,6 @@ const mapStateToProps = store => ({
 })
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchGetPosts, fetchGetPostsByCategory, setCategory }, dispatch)
+  bindActionCreators({ fetchGetPosts, fetchGetPostsByCategory, setCategory, setSort }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListPosts)

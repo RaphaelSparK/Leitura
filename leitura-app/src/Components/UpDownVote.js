@@ -3,7 +3,7 @@ import { Checkbox, Icon, Label } from 'semantic-ui-react'
 import './UpDownVote.css'
 
 class UpDownVote extends Component {
-  state = { 
+  state = {
     status: 0,
     voted: false
    }
@@ -39,7 +39,7 @@ class UpDownVote extends Component {
           onChange={this.upVote} 
           checked={this.state.status === 1}
          />
-         <Label size={this.props.scoreSize || 'large'} horizontal color={this.props.voteScore > 0?'green':'red'}>{this.props.voteScore}</Label>         
+         <Label size={this.props.scoreSize || 'large'} horizontal color={this.props.voteScore > 0?'green':'red'}>{this.props.voteScore - 1}</Label>         
          <Checkbox  
           label={this.state.status === -1 ?
            <Icon 

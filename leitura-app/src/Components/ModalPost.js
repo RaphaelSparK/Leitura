@@ -17,6 +17,7 @@ export default class ModalPost extends Component {
         onClose={this.handleClose}
         basic
         size='small'
+        style={{ width: '570px' }}
       >
         <Modal.Content>
           <PostNew closeModal={this.handleClose}></PostNew>

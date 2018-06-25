@@ -36,7 +36,7 @@ class PostNew extends Component {
     }
 
     if (_.values(newPost).some(e => e === '')) {
-      Swal('Complete all fields', '', 'warning')
+      Swal('Preencha todos os campos', '', 'warning')
     } else {
       this.props.fetchSetPost(newPost)
       this.setState({
@@ -46,8 +46,8 @@ class PostNew extends Component {
         category: '' })
 
       Swal(
-        'Good!',
-        'Post saved',
+        'Ótimo!',
+        'Postado',
         'success'
       )
       this.props.closeModal()
@@ -64,7 +64,7 @@ class PostNew extends Component {
               </Item.Header>
               <Item.Description>
                 <Dropdown
-                  placeholder='Select Category'
+                  placeholder='Selecione a categoria'
                   style={{ width: '500px' }}
                   selection
                   value={this.state.category}
@@ -73,8 +73,8 @@ class PostNew extends Component {
               </Item.Description>
               <Item.Description>
                 <Input
-                  label='Author'
-                  placeholder='Author'
+                  label='Autor'
+                  placeholder='Autor'
                   name='author'
                   style={{ width: '500px' }}
                   value={this.state.author}
@@ -83,8 +83,8 @@ class PostNew extends Component {
               </Item.Description>
               <Item.Description>
                 <Input
-                  label='Title'
-                  placeholder='Title'
+                  label='Título'
+                  placeholder='Título'
                   name='title'
                   style={{ width: '500px' }}
                   value={this.state.title}

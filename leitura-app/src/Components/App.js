@@ -41,20 +41,20 @@ class App extends Component {
 
             <Dropdown item simple text='Categorias'>
               <Dropdown.Menu>
-                { categories.categoryList.map(cat => (<Dropdown.Item key={cat.name} as={Link} to={'/' + cat.path}><Label circular color={this.props.categories.colors[cat.name]} empty />{cat.name}</Dropdown.Item>))}
+                { categories.categoryList.map(cat => (<Dropdown.Item key={cat.name} as={Link} to={`/${cat.path}/`}><Label circular color={this.props.categories.colors[cat.name]} empty />{cat.name}</Dropdown.Item>))}
               </Dropdown.Menu>
             </Dropdown>
             <ModalPost />
           </Container>
         </Menu>
-        <Container className='m-t10vh'>
+        <Container className='p-t10vh'>
           <Switch>
             <Route exact path='/' component={ListPosts} />
-            {/* <Route exact path='/new' component={PostNew} /> */}
-            <Route exact path='/:category' component={ListPosts} />
+            <Route exact path='/404'component={Page404} />
             <Route exact path='/:category/:id' component={PostDetails} />
+            <Route exact path='/:category/' component={ListPosts} />
             <Route exact path='/post/:id/edit' component={PostEdit} />
-            <Route path='/404' component={Page404} />
+
           </Switch>
         </Container>
       </div>

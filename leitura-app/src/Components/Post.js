@@ -13,10 +13,10 @@ class Post extends Component {
       <Segment color={this.props.categories.colors[this.props.category]}>
         <Grid>
           <Grid.Column width={13}>
-            <Label as={Link} to={'/' + this.props.category} color={this.props.categories.colors[this.props.category]} ribbon>
+            <Label as={Link} to={`/${this.props.category}/`} color={this.props.categories.colors[this.props.category]} ribbon>
               {this.props.category}
             </Label>
-            <h2><Link to={this.props.category + '/' + this.props.id}>{this.props.title}</Link></h2>
+            <h2><Link to={`/${this.props.category}/${this.props.id}/`}>{this.props.title}</Link></h2>
             <label>Autor: <b>{this.props.author}</b>, em {Moment.unix(this.props.timestamp / 1000).format('DD/MM/YYYY')}</label> <br /><br /><br />
             <UpDownVote size='big' voteScore={this.props.voteScore} id={this.props.id} handleVote={this.props.fetchPostVote} />
             <Divider horizontal>Comentários: {this.props.commentCount}</Divider>

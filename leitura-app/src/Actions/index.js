@@ -12,7 +12,9 @@ import {
   SET_COMMENT,
   VOTE_POST,
   VOTE_COMMENT,
-  DELETE_COMMENT
+  DELETE_COMMENT,
+  SET_ORDER,
+  EDIT_POST
 } from '../Actions/actionTypes'
 
 export function getCategories (categories) {
@@ -37,6 +39,12 @@ export function setCategory (category) {
   }
 }
 
+export function setSort (sort) {
+  return {
+    type: SET_ORDER,
+    sort
+  }
+}
 export function getPosts (posts) {
   return {
     type: GET_POSTS,
@@ -106,6 +114,19 @@ export function setPost (post) {
 export function fetchSetPost (post) {
   return (dispatch) => {
     API.createPost(post).then(response => dispatch(setPost(post, response)))
+  }
+}
+
+export function setEditPost (post) {
+  return {
+    type: EDIT_POST,
+    post
+  }
+}
+
+export function fetchSetEditPost (post) {
+  return (dispatch) => {
+    API.editPost(post).then(response => dispatch(setEditPost(post, response)))
   }
 }
 

@@ -14,6 +14,10 @@ class PostDetails extends Component {
     this.props.fetchGetComments(this.props.match.params.id)
   }
 
+  componentDidUpdate (prevProps) {
+    Object.keys(this.props.posts.post).length === 0 && this.props.posts.post.constructor === Object && this.props.history.push('/404')
+  }
+
   deletePost (id) {
     Swal({
       title: 'Excluir o post?',
@@ -39,10 +43,10 @@ class PostDetails extends Component {
 
   render () {
     const { post } = this.props.posts
+    if (post === undefined) this.props.history.push('/404')
     return (
-      (!post || post.category !== this.props.categories.category)
-        ? this.props.history.push('/404')
-        : <Segment>
+      post && (
+        <Segment>
           <Grid>
             <Grid.Column width={13}>
               <Label as={Link} to={'/' + post.category} color={this.props.categories.colors[post.category]} ribbon>
@@ -64,6 +68,7 @@ class PostDetails extends Component {
           </Grid>
           <Comments />
         </Segment>
+      )
     )
   }
 }

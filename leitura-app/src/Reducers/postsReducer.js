@@ -1,8 +1,9 @@
-import { GET_POSTS, GET_POSTS_BY_CATEGORY, GET_POST, SET_POST, DELETE_POST, VOTE_POST } from '../Actions/actionTypes'
+import { GET_POSTS, GET_POSTS_BY_CATEGORY, GET_POST, SET_POST, DELETE_POST, VOTE_POST, SET_ORDER } from '../Actions/actionTypes'
 
 const initialState = {
   postList: [],
-  post: {}
+  post: [],
+  sort: 'timestamp'
 }
 
 export const postsReducer = (state = initialState, action) => {
@@ -11,6 +12,11 @@ export const postsReducer = (state = initialState, action) => {
       return {
         ...state,
         postList: action.posts
+      }
+    case SET_ORDER:
+      return {
+        ...state,
+        sort: action.sort
       }
     case SET_POST:
       return {
@@ -30,7 +36,8 @@ export const postsReducer = (state = initialState, action) => {
     case DELETE_POST:
       return {
         ...state,
-        postList: state.postList.filter(p => p.id !== action.id)
+        postList: state.postList.filter(p => p.id !== action.id),
+        post: []
       }
     case VOTE_POST:
       return {
