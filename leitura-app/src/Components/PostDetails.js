@@ -10,8 +10,12 @@ import UpDownVote from './UpDownVote'
 import Swal from 'sweetalert2'
 class PostDetails extends Component {
   componentDidMount () {
-    this.props.fetchGetPost(this.props.match.params.id)
-    this.props.fetchGetComments(this.props.match.params.id)
+    if (this.props.posts.postList.some(p => p.id === this.props.match.params.id)) {
+      this.props.fetchGetPost(this.props.match.params.id)
+      this.props.fetchGetComments(this.props.match.params.id)
+    } else {
+      this.props.history.push('/404')
+    }
   }
 
   componentDidUpdate (prevProps) {

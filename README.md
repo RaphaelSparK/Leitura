@@ -13,10 +13,11 @@ To get started developing right away:
     - `npm install`
     - `node server`
 * In another terminal window, use Create React App to scaffold out the front-end
-    - `create-react-app frontend`
-    - `cd frontend`
+    - `create-react-app leitura-app`
+    - `cd leitura app`
     - `npm start`
 
 ## API Server
 
 Information about the API server and how to use it can be found in its [README file](api-server/README.md).
+Information about the leitura-appr and how to use it can be found in its [README file](leitura-app/README.md).

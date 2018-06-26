@@ -1,13 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class Page404 extends Component {
-  render () {
-    return (
-      <div>
+const Page404 = () => {
+  return (
+    <div>
        Página não encontrada
-      </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default Page404
